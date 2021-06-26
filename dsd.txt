@@ -1,0 +1,41 @@
+''''
+def index():
+    file= Imageform(request.POST or None, request.FILES or None)
+    if request.method == 'POST':
+        
+        file = Imageform(request.POST or None, request.FILES or None)
+        
+
+            
+        img = file.save()  # PIL image
+        #uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" + file
+        # img.save(uploaded_img_path)
+
+        # Run search
+        query = fe.extract(img)
+        dists = np.linalg.norm(features-query, axis=1)  # L2 distances to features
+        ids = np.argsort(dists)[:30]  # Top 30 results
+        scores = [(dists[id], img_paths[id]) for id in ids]
+
+        return render(request, 'index.html', {'scores': scores,  'file': file,})
+                               
+    else:
+        file= Imageform()
+        contex={
+
+        'file': file,
+
+        }
+
+        return render(request, 'index.html', contex)
+
+    contex={
+
+        'file': file,
+
+    }
+
+
+    return render(request, 'index.html', contex)
+
+    ''''
